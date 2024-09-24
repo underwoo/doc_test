@@ -96,6 +96,7 @@ linkcheck_allowed_redirects = {
     r'https://.*?\.google\.com/?.*': r'https://accounts\.google\.com/.*?/signin/.*',
     r'https://.*\.google\.com/?.*': r'https://.*?\.google\.com/?.*?/edit',
     r'https://github\.com/?.*': r'https://github\.com/login',
+    r'https://sslvpn\.rdhpcs\.noaa\.gov/': r'https://sslvpn\.rdhpcs\.noaa\.gov/.*'
 }
 
 linkcheck_ignore = [
@@ -103,7 +104,9 @@ linkcheck_ignore = [
     r'https://www\.intel\.com/content/.*',
     r'https://www\.lustre\.org/documentation/',
     r'https://www\.putty\.org/*',
+    r'https://(orion|hercules)-ood.hpc.msstate.edu/?.*',
 ]
+linkcheck_retries = 3
 
 # This is needed for backwards compatibility.  We have
 # several links that point to pages that require a user

@@ -95,6 +95,127 @@ repeating processes:
 
   - No more than every 3 minutes.
 
+.. _allocation:
+
+Allocations
+===========
+
+RDHPCS System compute allocations are determined by the RDHPCS
+Allocation Committee (AC), with oversight from the NOAA HPC Board.
+Approved System allocations are typically given to portfolios as a
+percentage of the System or an average core-hours per month. Each
+portfolio is represented on the Allocation Committee and an Allocation
+Committee Chair is assigned by the HPC board typically for a 1+ year
+term. Each portfolio has a portfolio manager (PfM) who is responsible
+for managing their projects and Principal Investigators (PIs), and
+distributing their allocation amongst their projects as needed on each
+System where they have an allocation. Within a portfolio, allocations
+on a System can be traded by the PfM as desired. Portfolios may trade
+allocations with each other on a System or between Systems with
+approval from all concerned PfM’s, and with documentation and
+communication with the AC, but this is typically done only for a
+specified period of time. The PfM (in conjunction with the PI’s) is
+also responsible for managing disk quota and archive tape usage. A
+portfolio’s disk quota on a system is initially based on their
+percentage of compute allocation on that System.
+
+Click to review the `On-Premises Allocation Request Form
+<https://docs.google.com/forms/d/e/1FAIpQLScgzPjhQ_liCdWn0pZO9lMB-PbWN3DW7PNkcjGOBxlpFZuGUg/viewform?usp=sf_link>`_
+
+The Allocation Committee (AC) is appointed by
+the HPC Board to manage allocations across RDHPCS resources. The
+Committee has a rotating chair and representation from the
+Line Offices and Labs which use RDHPCS resources. The AC assigns a
+monthly compute allocation and approximate maximum disk quota, per
+RDHPCS resource.
+
+This document lists `committee members and PfMs
+<https://docs.google.com/presentation/d/1oZlV2yklYmCxWhCM6TF1DtRgy3BVPBDs/edit#slide=id.p2>`__
+For information on how allocations are implemented on a System, see
+:ref:`slurm-priority-and-fairshare`.
+
+Request an Increase in Allocations
+----------------------------------
+
+There are three steps to obtain an increase in allocation:
+
+#. Identify your Portfolio Manager (PfM).
+#. Request that your PfM
+   complete an `On-Premises Allocation Request Form`_.
+#. The PfM completes and submits the request for approval.
+#. The PfM opens a Help Ticket to notify RDHPCS of the request.
+   Send email to rdhpcs.<system>.help@noaa.gov, using the actual system name,
+   with Allocation in the subject line.
+
+
+Adding a Project to an Allocation
+---------------------------------
+
+Requests for additional project allocation are submitted by the
+PfM through OTRS or AIM. If the request involves different
+portfolios, both PfMs will need to approve and accept the transfer.
+The request should contain the following:
+
+* **FROM Project:** The project where hours will be subtracted.
+* **TO Project:** The project where hours will be added.
+* **AMOUNT:** The core hours to be moved in the transfer.
+* **TIME:** Is this a temporary or permanent transfer? If temporary,
+  please include the date when you would like this transfer to be
+  reverted.
+
+.. note::
+
+  Allocation increases for a project are constrained by the amount of
+  compute resources designated to a portfolio by the AC. If additional
+  compute is needed beyond the scope of the portfolio's resources,
+  PfMs may donate or trade hours as desired. Requests for new or
+  increased allocations beyond the allotted portfolio amount on a
+  system should be emailed to the Allocation Committee Chair, as they
+  must be approved by the Allocation Committee.
+
+Cloud Computing Allocations
+---------------------------
+
+To request allocation for a new project, complete the `Cloud Computing
+Allocation form
+<https://docs.google.com/forms/d/e/1FAIpQLScbCVdipW-Bj2iD-bPzFjrzGjOdVM_jbmabbEZ3-CNrWdrdBA/viewform?usp=sf_link>`_.
+After you complete the form, create a Cloud
+help ticket to track the issue. Send email to
+rdhpcs.cloud.help@noaa.gov, using Cloud Allocation Request in the
+subject line.
+
+.. note::
+
+  The Cloud Fiscal Year cycle starts collecting Cloud HPC
+  requirements in July/August for use in the next FY PoP.  If you are
+  requesting an Allocation to a brand-new project outside of the FY
+  cloud Allocation cycle, use the requirements sheet above and follow
+  those directions.
+
+To request an increase in current allocation, submit a Cloud help
+ticket. Send email to rdhpcs.cloud.help@noaa.gov, using Allocation
+Increase in the subject line.
+
+Quotas
+======
+
+Requesting Additional Storage for a Project
+-------------------------------------------
+
+When requesting additional storage quota, please be mindful of project
+space usage. Remember that the scratch spaces are not for long term
+storage. Please utilize HPSS for long term storage.
+
+Submit requests for additional quota via an OTRS help ticket
+from the PfM. The request should contain the following:
+
+* AMOUNT: The amount of quota needed.<br>
+* JUSTIFICATION:The reason why this space is needed.<br>
+* TIME FRAME: Is this a temporary or permanent implementation? If
+  temporary, please include the date when you would like this increase
+  to be reverted.
+
+
 File System Usage Practices and Policies
 ========================================
 
@@ -114,6 +235,13 @@ long term data storage.
    back up critical data to HPSS.
 2. Data unused over 30 days is considered old and should be removed or
    moved to a different storage vehicle.
+
+.. note::
+
+  Use this google doc to assist you with `Hera/Jet Scratch File
+  Management <https://docs.google.com/document/d/1fDssUm61kyACE3l-8A8n6G2gHa_I9kW55DpFO1vpwBk/edit?usp=sharing>`_
+
+
 3. Tar up old small files (or delete them) to free up space on the SSD
    pool and stay under your file count quota.
 4. Large files are still optimal for HPC batch job performance.
@@ -409,6 +537,31 @@ dispositioning of HFS data.
 
 Deactivated users' HFS data may be removed and saved to the tape
 archive system in a retention pool of at least 5 years.
+
+Protecting Restricted Data
+--------------------------
+
+This describes the process to protect the RSTPROD restricted data on Hera.
+Hera uses regular Linux group based protection for restricted data.
+
+It is up to the user to make sure that files containing restricted
+data are set to have the group as **rstprod** and also to make sure
+that permissions for the world are removed.
+
+.. code-block:: shell
+
+  # chgrp -R rstprod $DIR
+  # chmod -R rwx-go $DIR
+
+Where $DIR is the directory with the files you want to protect.
+
+When these files are copied to a different location, be sure to
+use the **-p** option on the **cp** command, to
+preserve the group and the protection for those files:
+
+.. code-block:: shell
+
+  # cp -rp $DIR $TARGET_DIR
 
 
 Managing Packages in ``/contrib``
