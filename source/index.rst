@@ -15,6 +15,8 @@ Welcome to RDHPCS's Documentation
    a migration from the current RDHPCS wikis.  The information here may not be
    full, and in a sub-optimal layout.
 
+   Just kidding.  It's gorgeous and perfect as is.
+
 Getting Started
 ===============
 
