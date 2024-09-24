@@ -8,4 +8,5 @@ Software
    :maxdepth: 2
 
    python/index
-
+   rocoto/index
+   x2go
